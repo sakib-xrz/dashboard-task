@@ -1,3 +1,5 @@
+"use client"
+import { useState } from "react";
 import StudentCard from "@/lib/components/Card/StudentCard";
 import Table from "@/lib/components/Table/Table";
 
@@ -292,74 +294,52 @@ const tableHeaders = [
   "Grade",
 ];
 
+const gradeValues = ['A+', 'A', 'A-', 'B', 'C', 'D', 'F'];
+
 export default function Student() {
+  const [selectedGrades, setSelectedGrades] = useState([]);
+
+  const toggleGrade = grade => {
+    if (selectedGrades.includes(grade)) {
+      setSelectedGrades(selectedGrades.filter(item => item !== grade));
+    } else {
+      setSelectedGrades([...selectedGrades, grade]);
+    }
+  };
+
+  const filteredStudentData = selectedGrades.length > 0
+    ? studentData.filter(data => selectedGrades.includes(data.grade))
+    : studentData;
+
   return (
     <div className="space-y-5">
-      <div className="flex justify-between items-center">
-        <p className="text-2xl text-gray-800 font-medium">
-          Student: {studentData.length}
+      <div className="md:flex justify-between items-center">
+        <p className="text-2xl lg:text-3xl text-gray-800 font-medium mb-5 md:mb-0">
+          Student: {filteredStudentData.length}
         </p>
-        <div className="overflow-hidden rounded-md border border-gray-100 bg-teal-100 text-teal-600 p-1">
-          <ul className="flex items-center gap-2 text-sm font-medium text-center">
-            <li className="flex-1">
-              <p
-                className={`hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto`}
-              >
-                A+
-              </p>
-            </li>
-            <li className="flex-1">
-              <p
-                className={`gap-2 hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto`}
-              >
-                A
-              </p>
-            </li>
-            <li className="flex-1">
-              <p
-                className={`gap-2 hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto`}
-              >
-                A-
-              </p>
-            </li>
-            <li className="flex-1">
-              <p
-                className={`gap-2 hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto`}
-              >
-                B
-              </p>
-            </li>
-            <li className="flex-1">
-              <p
-                className={`gap-2 hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto`}
-              >
-                C
-              </p>
-            </li>
-            <li className="flex-1">
-              <p
-                className={`gap-2 hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto`}
-              >
-                D
-              </p>
-            </li>
-            <li className="flex-1">
-              <p
-                className={`gap-2 hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto`}
-              >
-                F
-              </p>
-            </li>
+        <div className="rounded-md border border-gray-100 bg-teal-100 text-teal-600 p-1">
+          <ul className="flex items-center text-sm sm:gap-2 font-medium text-center">
+            {gradeValues.map((grade,index )=> (
+              <li key={index} className="flex-1">
+                <p
+                  className={`hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${selectedGrades.includes(grade) ? 'bg-white text-gray-700' : ''
+                    }`}
+                  onClick={() => toggleGrade(grade)}
+                >
+                  {grade}
+                </p>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
       <div className="hidden lg:block">
-        <Table tableData={studentData} headers={tableHeaders} />
+        <Table tableData={filteredStudentData} headers={tableHeaders} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:hidden">
         {" "}
-        {studentData.map((data) => (
+        {filteredStudentData.map((data) => (
           <StudentCard data={data} key={data.id} />
         ))}
       </div>

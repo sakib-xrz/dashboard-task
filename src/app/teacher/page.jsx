@@ -218,7 +218,7 @@ const tableHeaders = [
 export default function Teacher() {
     return (
         <div className="space-y-5">
-            <p className="text-2xl text-gray-800 font-medium">
+        <p className="text-2xl lg:text-3xl text-gray-800 font-medium">
                 Teacher: {teacherData.length}
             </p>
             <div className="hidden lg:block">
