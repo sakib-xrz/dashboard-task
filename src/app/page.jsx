@@ -8,7 +8,7 @@ export default function Home() {
     return (
         <div className="space-y-5">
             <h2 className="text-3xl lg:text-5xl font-medium text-teal-600 text-center">
-                Welcome to our Dashboard test
+                Welcome to our Dashboard
             </h2>
 
             <p className="text-2xl lg:text-3xl text-gray-800 font-medium">
