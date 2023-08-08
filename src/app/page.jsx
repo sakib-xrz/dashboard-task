@@ -18,7 +18,7 @@ const topStudents = studentData
             student.grade === "A-"
     )
     .sort((a, b) => {
-        const gradeOrder = { "A+": 3, A: 2, "A-": 1 };
+        const gradeOrder = { "A+": 3, "A": 2, "A-": 1 };
         return gradeOrder[b.grade] - gradeOrder[a.grade];
     })
     .slice(0, 10);
