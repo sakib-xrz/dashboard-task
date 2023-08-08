@@ -333,6 +333,8 @@ export default function Student() {
           </ul>
         </div>
       </div>
+
+      
       <div className="hidden lg:block">
         <Table tableData={filteredStudentData} headers={tableHeaders} />
       </div>

@@ -14,8 +14,8 @@ export default function LeftSidebar() {
     const pathname = usePathname();
     const [expand, setIsExpand] = useState(false)
     return (
-        <>
-            <ul className="hidden md:block space-y-1 lg:w-60 lg:min-h-screen sticky top-0 p-3 lg:py-10">
+        <aside>
+            <ul className="hidden md:block space-y-1 lg:w-60 lg:min-h-screen sticky top-0 p-3 lg:py-10 border-r">
                 {menus.map((e, i) => (
                     <li key={i} className="list-none w-full">
                         <Link
@@ -58,6 +58,6 @@ export default function LeftSidebar() {
                     </ul>
                 </div>
             </div>
-        </>
+        </aside>
     );
 }
