@@ -1,8 +1,27 @@
 "use client";
 import Link from "next/link";
-import { UsersIcon, UserGroupIcon, BookOpenIcon } from "@heroicons/react/24/solid";
+import {
+    UsersIcon,
+    UserGroupIcon,
+    BookOpenIcon,
+} from "@heroicons/react/24/solid";
 import { teacherData } from "./teacher/page";
-import { studentData } from "./student/page";
+import { studentData, tableHeaders } from "./student/page";
+import Table from "@/lib/components/Table/Table";
+import StudentCard from "@/lib/components/Card/StudentCard";
+
+const topStudents = studentData
+    .filter(
+        (student) =>
+            student.grade === "A+" ||
+            student.grade === "A" ||
+            student.grade === "A-"
+    )
+    .sort((a, b) => {
+        const gradeOrder = { "A+": 3, A: 2, "A-": 1 };
+        return gradeOrder[b.grade] - gradeOrder[a.grade];
+    })
+    .slice(0, 10);
 
 export default function Home() {
     return (
@@ -52,6 +71,22 @@ export default function Home() {
                         <h2 className="text-5xl font-bold">7</h2>
                     </div>
                     <BookOpenIcon className="h-14 w-14 p-2 rounded-full bg-green-500 text-white" />
+                </div>
+            </div>
+
+            <div>
+                <p className="text-xl lg:text-2xl text-gray-800 text-center font-medium py-5">
+                    Top 10 Students
+                </p>
+                <div className="hidden lg:block">
+                    <Table tableData={topStudents} headers={tableHeaders} />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:hidden">
+                    {" "}
+                    {topStudents.map((data) => (
+                        <StudentCard data={data} key={data.id} />
+                    ))}
                 </div>
             </div>
         </div>

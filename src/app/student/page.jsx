@@ -286,7 +286,7 @@ export const studentData = [
   },
 ];
 
-const tableHeaders = [
+export const tableHeaders = [
   "Student Id",
   "Name",
   "Guardian Name",
