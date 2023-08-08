@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { UsersIcon, UserGroupIcon } from "@heroicons/react/24/solid";
+import { UsersIcon, UserGroupIcon, BookOpenIcon } from "@heroicons/react/24/solid";
 import { teacherData } from "./teacher/page";
 import { studentData } from "./student/page";
 
@@ -51,7 +51,7 @@ export default function Home() {
                         </h5>{" "}
                         <h2 className="text-5xl font-bold">7</h2>
                     </div>
-                    <UsersIcon className="h-14 w-14 p-2 rounded-full bg-green-500 text-white" />
+                    <BookOpenIcon className="h-14 w-14 p-2 rounded-full bg-green-500 text-white" />
                 </div>
             </div>
         </div>
