@@ -221,10 +221,10 @@ export default function Teacher() {
         <p className="text-2xl lg:text-3xl text-gray-800 font-medium">
                 Teacher: {teacherData.length}
             </p>
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
                 <Table tableData={teacherData} headers={tableHeaders} />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:hidden">
                 {" "}
                 {teacherData.map((data) => (
                     <TeacherCard data={data} key={data.id} />

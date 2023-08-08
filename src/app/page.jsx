@@ -34,7 +34,7 @@ export default function Home() {
                 Summary
             </p>
 
-            <div className="grid lg:grid-cols-3 gap-10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
                 <Link
                     href={"/teacher"}
                     className="flex justify-between items-center w-full p-6 rounded-md cursor-pointer shadow"

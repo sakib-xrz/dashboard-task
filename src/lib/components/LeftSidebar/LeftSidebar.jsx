@@ -15,7 +15,7 @@ export default function LeftSidebar() {
     const [expand, setIsExpand] = useState(false)
     return (
         <aside>
-            <ul className="hidden md:block space-y-1 lg:w-60 lg:min-h-screen sticky top-0 p-3 lg:py-10 border-r">
+            <ul className="hidden md:block space-y-1 md:w-48 lg:w-60 md:min-h-screen sticky top-0 p-3 md:py-10 border-r">
                 {menus.map((e, i) => (
                     <li key={i} className="list-none w-full">
                         <Link
