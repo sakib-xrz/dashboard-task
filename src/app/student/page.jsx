@@ -1,8 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
 import StudentCard from "@/lib/components/Card/StudentCard";
 import Table from "@/lib/components/Table/Table";
-import { useRouter, useSearchParams, } from "next/navigation";
+import { useSearchParams, } from "next/navigation";
 import Link from "next/link";
 
 export const studentData = [
@@ -299,12 +298,15 @@ export const tableHeaders = [
 const gradeValues = ["A+", "A", "A-", "B", "C", "D", "F"];
 
 export default function Student() {
+    const existingParams = window.location.search;
     const filterParams = useSearchParams()
-    const filter = filterParams.get('filter')?.toUpperCase()
+    const filterKeywords = filterParams?.getAll('filter')
+
+    const filter = filterKeywords.map(item => item.toUpperCase());
 
     const filteredStudentData =
-        filter
-            ? studentData.filter((data) => data.grade === filter)
+        filterKeywords.length > 0
+            ? studentData.filter((data) => filter.includes(data.grade))
             : studentData;
 
     return (
@@ -317,10 +319,10 @@ export default function Student() {
                     <ul className="flex items-center text-sm sm:gap-2 font-medium text-center">
                         {gradeValues.map((grade, index) => (
                             <li key={index} className="flex-1">
-                                <Link href={`?filter=${encodeURIComponent(grade).toLowerCase()}`}
+                                <Link href={filterKeywords.length ? `${existingParams}&filter=${encodeURIComponent(grade).toLowerCase()}`: `?filter=${encodeURIComponent(grade).toLowerCase()}` }
                                     className={`inline-block rounded-md cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${filter === grade
-                                            ? "bg-teal-500 hover:bg-teal-500 text-white hover:text-white "
-                                            : "hover:bg-white text-gray-700"
+                                        ? "bg-teal-500 hover:bg-teal-500 text-white hover:text-white "
+                                        : "hover:bg-white text-gray-700"
                                         }`}
                                 >
                                     {grade}
