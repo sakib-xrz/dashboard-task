@@ -1,7 +1,8 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StudentCard from "@/lib/components/Card/StudentCard";
 import Table from "@/lib/components/Table/Table";
+import { useRouter } from "next/navigation";
 
 export const studentData = [
   {
@@ -297,7 +298,25 @@ export const tableHeaders = [
 const gradeValues = ['A+', 'A', 'A-', 'B', 'C', 'D', 'F'];
 
 export default function Student() {
+  const router = useRouter();
   const [selectedGrades, setSelectedGrades] = useState([]);
+
+  function createQueryString(values) {
+    if (values.length > 0) {
+      const encodedValue = values.map(v => encodeURIComponent(v.toLowerCase())).join("&");
+      return `?filters=${encodedValue}`;
+    }
+    return "";
+  }
+
+  useEffect(() => {
+    const queryString = createQueryString(selectedGrades);
+    if (queryString !== "") {
+      router.push(queryString);
+    } else {
+      router.replace("/student");
+    }
+  }, [selectedGrades, router]);
 
   const toggleGrade = grade => {
     if (selectedGrades.includes(grade)) {
@@ -319,10 +338,10 @@ export default function Student() {
         </p>
         <div className="rounded-md border border-gray-100 bg-teal-100 text-teal-600 p-1">
           <ul className="flex items-center text-sm sm:gap-2 font-medium text-center">
-            {gradeValues.map((grade,index )=> (
+            {gradeValues.map((grade, index) => (
               <li key={index} className="flex-1">
                 <p
-                  className={`hover:bg-white rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${selectedGrades.includes(grade) ? 'bg-white text-gray-700' : ''
+                  className={`rounded-lg cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${selectedGrades.includes(grade) ? 'bg-white hover:bg-white text-gray-700' : 'hover:bg-teal-500 hover:text-white'
                     }`}
                   onClick={() => toggleGrade(grade)}
                 >
@@ -334,7 +353,7 @@ export default function Student() {
         </div>
       </div>
 
-      
+
       <div className="hidden lg:block">
         <Table tableData={filteredStudentData} headers={tableHeaders} />
       </div>
