@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import StudentCard from "@/lib/components/Card/StudentCard";
 import Table from "@/lib/components/Table/Table";
-import { useRouter,  } from "next/navigation";
+import { useRouter, useSearchParams, } from "next/navigation";
+import Link from "next/link";
 
 export const studentData = [
     {
@@ -298,40 +299,12 @@ export const tableHeaders = [
 const gradeValues = ["A+", "A", "A-", "B", "C", "D", "F"];
 
 export default function Student() {
-    const router = useRouter();
-
-    const [selectedGrades, setSelectedGrades] = useState([]);
-
-    function createQueryString(values) {
-        if (values.length > 0) {
-            const encodedValue = values
-                .map((v) => encodeURIComponent(v.toLowerCase()))
-                .join("&");
-            return `?filters=${encodedValue}`;
-        }
-        return "";
-    }
-
-    useEffect(() => {
-        const queryString = createQueryString(selectedGrades);
-        if (queryString !== "") {
-            router.push(queryString);
-        } else {
-            router.replace("/student");
-        }
-    }, [selectedGrades, router]);
-
-    const toggleGrade = (grade) => {
-        if (selectedGrades.includes(grade)) {
-            setSelectedGrades(selectedGrades.filter((item) => item !== grade));
-        } else {
-            setSelectedGrades([...selectedGrades, grade]);
-        }
-    };
+    const filterParams = useSearchParams()
+    const filter = filterParams.get('filter')?.toUpperCase()
 
     const filteredStudentData =
-        selectedGrades.length > 0
-            ? studentData.filter((data) => selectedGrades.includes(data.grade))
+        filter
+            ? studentData.filter((data) => data.grade === filter)
             : studentData;
 
     return (
@@ -344,16 +317,14 @@ export default function Student() {
                     <ul className="flex items-center text-sm sm:gap-2 font-medium text-center">
                         {gradeValues.map((grade, index) => (
                             <li key={index} className="flex-1">
-                                <p
-                                    className={`rounded-md cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${
-                                        selectedGrades.includes(grade)
+                                <Link href={`?filter=${encodeURIComponent(grade).toLowerCase()}`}
+                                    className={`inline-block rounded-md cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${filter === grade
                                             ? "bg-teal-500 hover:bg-teal-500 text-white hover:text-white "
                                             : "hover:bg-white text-gray-700"
-                                    }`}
-                                    onClick={() => toggleGrade(grade)}
+                                        }`}
                                 >
                                     {grade}
-                                </p>
+                                </Link>
                             </li>
                         ))}
                     </ul>
