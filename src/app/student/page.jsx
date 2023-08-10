@@ -1,7 +1,7 @@
 "use client";
 import StudentCard from "@/lib/components/Card/StudentCard";
 import Table from "@/lib/components/Table/Table";
-import { usePathname, useSearchParams, } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export const studentData = [
@@ -297,22 +297,13 @@ export const tableHeaders = [
 
 const gradeValues = ["A+", "A", "A-", "B", "C", "D", "F"];
 
-export default function Student({ searchParams }) {
-  const existingParams = window.location.search;
-
-  console.log(existingParams);
-  // console.log(searchParams);
-  const currentUrl = window.location.href
-  const isSearchParamsAnArray = Array.isArray(searchParams.filter)
-  const filterParams = useSearchParams()
-  const pathName = usePathname()
-  console.log(filterParams)
-  const filterKeywords = filterParams?.getAll('filter')
-  const filter = filterKeywords.map(item => item.toUpperCase());
+export default function Student() {
+  const filterParams = useSearchParams();
+  const filter = filterParams?.get("filter")?.toUpperCase();
 
   const filteredStudentData =
-    filterKeywords.length > 0
-      ? studentData.filter((data) => filter.includes(data.grade))
+    filter?.length > 0
+      ? studentData.filter((data) => data.grade === filter)
       : studentData;
 
   return (
@@ -325,10 +316,13 @@ export default function Student({ searchParams }) {
           <ul className="flex items-center text-sm sm:gap-2 font-medium text-center">
             {gradeValues.map((grade, index) => (
               <li key={index} className="flex-1">
-                <Link href={searchParams.filter ? isSearchParamsAnArray ? `${pathName}&filter=${encodeURIComponent(grade).toLowerCase()}` : `${pathName}?filter=${searchParams.filter}&filter=${encodeURIComponent(grade).toLowerCase()}` : `?filter=${encodeURIComponent(grade).toLowerCase()}`}
+                <Link
+                  href={`?filter=${encodeURIComponent(
+                    grade
+                  ).toLowerCase()}`}
                   className={`inline-block rounded-md cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${filter === grade
-                    ? "bg-teal-500 hover:bg-teal-500 text-white hover:text-white "
-                    : "hover:bg-white text-gray-700"
+                      ? "bg-teal-500 hover:bg-teal-500 text-white hover:text-white "
+                      : "hover:bg-white text-gray-700"
                     }`}
                 >
                   {grade}
@@ -352,14 +346,3 @@ export default function Student({ searchParams }) {
     </div>
   );
 }
-
-
-
-//   < Link href = { filterKeywords?.length > 0 ? `${searchParams}&filter=${encodeURIComponent(grade).toLowerCase()}` : `?filter=${encodeURIComponent(grade).toLowerCase()}`}
-// className = {`inline-block rounded-md cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${filter === grade
-//   ? "bg-teal-500 hover:bg-teal-500 text-white hover:text-white "
-//   : "hover:bg-white text-gray-700"
-//   }`}
-//                     >
-//   { grade }
-//                     </ >
