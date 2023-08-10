@@ -299,11 +299,12 @@ const gradeValues = ["A+", "A", "A-", "B", "C", "D", "F"];
 
 export default function Student() {
   const filterParams = useSearchParams();
-  const filter = filterParams?.get("filter")?.toUpperCase();
+  const getUrlArray = filterParams?.toString()?.split("=")[1]?.split("%26")
+  const filters = getUrlArray?.map((filter) => decodeURIComponent(filter).toUpperCase());
 
   const filteredStudentData =
-    filter?.length > 0
-      ? studentData.filter((data) => data.grade === filter)
+    filters?.length > 0
+      ? studentData.filter((data) => filters.includes(data.grade))
       : studentData;
 
   return (
@@ -317,10 +318,16 @@ export default function Student() {
             {gradeValues.map((grade, index) => (
               <li key={index} className="flex-1">
                 <Link
-                  href={`?filter=${encodeURIComponent(
-                    grade
-                  ).toLowerCase()}`}
-                  className={`inline-block rounded-md cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${filter === grade
+                  href={
+                    filterParams.toString().length > 0
+                      ? `?${filterParams.toString()}${encodeURIComponent(
+                        `&${grade}`
+                      ).toLowerCase()}`
+                      : `?filter=${encodeURIComponent(
+                        grade
+                      ).toLowerCase()}`
+                  }
+                  className={`inline-block rounded-md cursor-pointer p-2 hover:text-gray-700 w-10 mx-auto ${filters?.includes(grade)
                       ? "bg-teal-500 hover:bg-teal-500 text-white hover:text-white "
                       : "hover:bg-white text-gray-700"
                     }`}
