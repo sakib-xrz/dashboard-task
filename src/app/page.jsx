@@ -34,7 +34,7 @@ export default function Home() {
                 Summary
             </p>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
                 <Link
                     href={"/teacher"}
                     className="flex justify-between items-center w-full p-6 rounded-md cursor-pointer shadow"
@@ -82,7 +82,7 @@ export default function Home() {
                     <Table tableData={topStudents} headers={tableHeaders} />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:hidden">
+                <div className="grid sm:grid-cols-2 gap-5 lg:hidden">
                     {" "}
                     {topStudents.map((data) => (
                         <StudentCard data={data} key={data.id} />

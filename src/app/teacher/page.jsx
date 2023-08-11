@@ -224,7 +224,7 @@ export default function Teacher() {
             <div className="hidden xl:block">
                 <Table tableData={teacherData} headers={tableHeaders} />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:hidden">
+            <div className="grid sm:grid-cols-2 gap-5 xl:hidden">
                 {" "}
                 {teacherData.map((data) => (
                     <TeacherCard data={data} key={data.id} />

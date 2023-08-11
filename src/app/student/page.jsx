@@ -344,7 +344,7 @@ export default function Student() {
         <Table tableData={filteredStudentData} headers={tableHeaders} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:hidden">
+      <div className="grid sm:grid-cols-2 gap-5 lg:hidden">
         {" "}
         {filteredStudentData.map((data) => (
           <StudentCard data={data} key={data.id} />

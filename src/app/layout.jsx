@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className + " md:flex"}>
                 <LeftSidebar />
-                <main className="lg:w-full p-3 lg:p-10">
+                <main className="w-full p-3 lg:p-10">
                     {children}
                 </main>
             </body>
