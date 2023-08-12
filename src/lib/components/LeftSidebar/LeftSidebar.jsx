@@ -8,6 +8,7 @@ export const menus = [
     { route: "Dashboard", path: "/" },
     { route: "Teacher", path: "/teacher" },
     { route: "Student", path: "/student" },
+    { route: "Art", path: "/art" },
 ];
 
 export default function LeftSidebar() {
@@ -35,7 +36,7 @@ export default function LeftSidebar() {
                     className="w-full bg-transparent text-teal-600 border border-teal-600 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-between "
                     type="button"
                 >
-                    {pathname === "/" ? "Dashboard" : pathname === "/teacher" ? "Teacher" : "Student"}
+                    {pathname === "/" ? "Dashboard" : pathname === "/teacher" ? "Teacher" : pathname === "/student" ? "Student" : "Art"}
                     <ChevronDownIcon className="h-5 w-5" />
                 </button>
 
