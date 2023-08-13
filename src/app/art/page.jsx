@@ -1,8 +1,9 @@
 "use client";
 import { getArt } from "@/lib/api";
+import Modal from "@/lib/components/Modal/Modal";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 const headers = ["ID", "ART", "TITLE", "PRICE", "SELLER", "DETAILS"];
 
@@ -11,9 +12,18 @@ export default function Art() {
         queryKey: ["art"],
         queryFn: getArt,
     });
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedDataId, setSelectedDataId] = useState(null);
+
+    const handleViewDetailsClick = (dataId) => {
+        setSelectedDataId(dataId);
+        setModalOpen(true);
+    };
+
     return (
-        <div className="space-y-5">
-            <p className="text-2xl lg:text-3xl text-gray-800 font-medium">
+        <div>
+            <p className="text-2xl lg:text-3xl text-gray-800 font-medium mb-5">
                 Art: {tableData?.length}
             </p>
             <table className={`text-sm text-gray-500 border w-full mx-auto`}>
@@ -51,7 +61,12 @@ export default function Art() {
                                 ${data.seller_name}
                             </td>
                             <td className="px-4 py-2 font-medium text-gray-800 whitespace-nowrap">
-                                <button className="border border-teal-500 text-teal-600 px-1 rounded-sm">
+                                <button
+                                    onClick={() =>
+                                        handleViewDetailsClick(data.id)
+                                    }
+                                    className="border border-teal-500 text-teal-600 px-1 rounded-sm"
+                                >
                                     View Details
                                 </button>
                             </td>
@@ -59,6 +74,12 @@ export default function Art() {
                     ))}
                 </tbody>
             </table>
+            <Modal
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                selectedDataId={selectedDataId}
+                setSelectedDataId={setSelectedDataId}
+            />
         </div>
     );
 }
