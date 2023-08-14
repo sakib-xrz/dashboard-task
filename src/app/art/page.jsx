@@ -20,12 +20,12 @@ export default function Art() {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedDataId, setSelectedDataId] = useState(null);
 
-    const view = localStorage.getItem("view") || "tabular";
-
     const handleViewDetailsClick = (dataId) => {
         setSelectedDataId(dataId);
         setModalOpen(true);
     };
+
+    const [view, setView] = useState(localStorage.getItem("view") || "tabular");
 
     useEffect(() => {
         localStorage.setItem("view", view);
