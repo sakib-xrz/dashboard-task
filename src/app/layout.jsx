@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     return (
         <QueryClientProvider client={queryClient}>
             <html lang="en">
-                <body className={inter.className + " md:flex"}>
+                <body className={inter.className + " lg:flex"}>
                     <LeftSidebar />
                     <main className="w-full p-3 lg:p-10">
                         {children}

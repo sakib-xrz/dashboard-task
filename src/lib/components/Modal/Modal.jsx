@@ -41,7 +41,7 @@ export default function Modal({
             {isLoading ? (
                 "Loading..."
             ) : (
-                <div class="w-full max-w-2xl p-5 relative mx-auto my-auto rounded-md shadow-lg bg-white ">
+                <div class="w-full max-w-2xl p-5 mx-5 relative mx-auto my-auto rounded-md shadow-lg bg-white ">
                     <XMarkIcon
                         onClick={() => {
                             setModalOpen(false), setSelectedDataId(null);
@@ -51,7 +51,7 @@ export default function Modal({
                     <h2 className="text-center font-semibold text-2xl underline">
                         Art Details
                     </h2>
-                    <div className="flex items-center gap-5 mt-5">
+                    <div className="flex flex-col md:flex-row items-center gap-5 mt-5">
                         <Image
                             className="w-4/12 h-auto object-cover rounded-md"
                             src={data?.image}
@@ -62,7 +62,7 @@ export default function Modal({
                         <div>
                             <div className="flex items-center gap-4 mb-5">
                                 <Image
-                                    className="w-16 h-16 object-cover rounded-full"
+                                    className="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full"
                                     src={data.seller_avatar}
                                     alt={data.title}
                                     width={"200"}
@@ -72,9 +72,9 @@ export default function Modal({
                                     <h4 className="font-semibold text-lg">
                                         {data.seller_name}
                                     </h4>
-                                    <h4 className="text-md">
+                                    <p className="text-md">
                                         {data.seller_city},{data.seller_country}
-                                    </h4>
+                                    </p>
                                 </div>
                             </div>
                             <h3 className="font-semibold text-xl">
