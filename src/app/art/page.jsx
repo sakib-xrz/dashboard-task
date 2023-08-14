@@ -25,11 +25,14 @@ export default function Art() {
         setModalOpen(true);
     };
 
-    const [view, setView] = useState(localStorage.getItem("view") || "tabular");
+    const [view, setView] = useState("tabular");
 
     useEffect(() => {
-        localStorage.setItem("view", view);
-    }, [view]);
+        const storedView = localStorage.getItem("view");
+        if (storedView) {
+            setView(storedView);
+        }
+    }, []);
 
     const renderTableView = () => (
         <CustomTable
@@ -43,13 +46,12 @@ export default function Art() {
     const renderCardView = () => <CardView data={data} />;
 
     const renderView = () => {
-        switch (view) {
-            case "compact":
-                return renderCompactView();
-            case "card":
-                return renderCardView();
-            default:
-                return renderTableView();
+        if (view === "compact") {
+            return renderCompactView();
+        } else if (view === "card") {
+            return renderCardView();
+        } else {
+            return renderTableView();
         }
     };
 
