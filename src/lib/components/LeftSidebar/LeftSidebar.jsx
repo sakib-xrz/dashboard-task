@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
 export const menus = [
@@ -20,37 +20,60 @@ export default function LeftSidebar() {
                 {menus.map((e, i) => (
                     <li key={i} className="list-none w-full">
                         <Link
-                            className={`inline-block w-full py-2 px-4 text-teal-700  rounded-md cursor-pointer font-medium text-lg ${pathname === e.path
-                                ? " hover:bg-teal-100 bg-teal-100"
-                                : "hover:bg-gray-50"
-                                }`}
+                            className={`inline-block w-full py-2 px-4 text-teal-700  rounded-md cursor-pointer font-medium text-lg ${
+                                pathname === e.path
+                                    ? " hover:bg-teal-100 bg-teal-100"
+                                    : "hover:bg-gray-50"
+                            }`}
                             href={e.path}
                         >
                             {e.route}
                         </Link>
                     </li>
                 ))}
+                <Link
+                    className={`absolute bottom-4 p-2 text-teal-700 rounded-md cursor-pointer font-medium text-lg ${
+                        pathname === "/settings"
+                            ? " hover:bg-teal-100 bg-teal-100"
+                            : "hover:bg-gray-50"
+                    }`}
+                    href={"/settings"}
+                >
+                    <Cog6ToothIcon className="h-10 w-10" />
+                </Link>
             </ul>
             <div className="p-3 lg:hidden">
-                <button onClick={() => setIsExpand(!expand)}
+                <button
+                    onClick={() => setIsExpand(!expand)}
                     className="w-full bg-transparent text-teal-600 border border-teal-600 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-between "
                     type="button"
                 >
-                    {pathname === "/" ? "Dashboard" : pathname === "/teacher" ? "Teacher" : pathname === "/student" ? "Student" : "Art"}
+                    {pathname === "/"
+                        ? "Dashboard"
+                        : pathname === "/teacher"
+                        ? "Teacher"
+                        : pathname === "/student"
+                        ? "Student"
+                        : "Art"}
                     <ChevronDownIcon className="h-5 w-5" />
                 </button>
 
-                <div className={`z-10 ${expand ? "" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-full`}>
+                <div
+                    className={`z-10 ${
+                        expand ? "" : "hidden"
+                    } bg-white divide-y divide-gray-100 rounded-lg shadow w-full`}
+                >
                     <ul className="text-sm text-gray-700">
                         {menus.map((e, i) => (
                             <li key={i}>
                                 <Link
                                     onClick={() => setIsExpand(!expand)}
                                     href={e.path}
-                                    className={`block px-4 py-2 ${pathname === e.path
-                                        ? " hover:bg-teal-100 bg-teal-100"
-                                        : "hover:bg-gray-50"
-                                        }  text-teal-700 `}
+                                    className={`block px-4 py-2 ${
+                                        pathname === e.path
+                                            ? " hover:bg-teal-100 bg-teal-100"
+                                            : "hover:bg-gray-50"
+                                    }  text-teal-700 `}
                                 >
                                     {e.route}
                                 </Link>

@@ -41,7 +41,7 @@ export default function Modal({
             {isLoading ? (
                 "Loading..."
             ) : (
-                <div class="w-full max-w-2xl p-5 mx-5 relative mx-auto my-auto rounded-md shadow-lg bg-white ">
+                <div class="w-full max-w-2xl p-5 mx-5 relative lg:mx-auto my-auto rounded-md shadow-lg bg-white ">
                     <XMarkIcon
                         onClick={() => {
                             setModalOpen(false), setSelectedDataId(null);
