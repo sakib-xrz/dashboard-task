@@ -9,8 +9,6 @@ import CustomTable from "@/lib/components/Table/CustomTable";
 import CardView from "@/lib/components/View/CardView";
 import CompactView from "@/lib/components/View/CompactView";
 
-const headers = ["ID", "ART", "TITLE", "PRICE", "SELLER", "DETAILS"];
-
 export default function Art() {
     const { data, isLoading } = useQuery({
         queryKey: ["art"],
@@ -36,7 +34,6 @@ export default function Art() {
 
     const renderTableView = () => (
         <CustomTable
-            headers={headers}
             tableData={data}
             handleViewDetailsClick={handleViewDetailsClick}
         />
